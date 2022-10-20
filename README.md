@@ -1,4 +1,4 @@
-#  Hardhat-Starter-Template
+#  Solidity-Reentrancy-Attack-Example
 
 ## OVERVIEW
 
