@@ -1,18 +1,16 @@
-
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./EscrowSecure.sol"
+import "./EscrowSecure.sol";
 
-contract Hacker {
-    EscrowSecure public secureEscrowContract;
+contract HackerFails {
+    EscrowSecure private secureEscrowContract;
 
     constructor(address escrowAddress) {
         secureEscrowContract = EscrowSecure(escrowAddress);
     }
 
     function attack() external payable {
-        require(msg.value >= 1 ether);
         secureEscrowContract.deposit{value: 1 ether}();
         secureEscrowContract.withdraw();
     }
@@ -27,7 +25,7 @@ contract Hacker {
         }
     }
 
-    function getBalance() external view returns (uint) {
+    function getBalance() external view returns (uint256) {
         return address(this).balance;
     }
 }
