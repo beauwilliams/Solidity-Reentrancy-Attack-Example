@@ -2,7 +2,11 @@
 
 ## OVERVIEW
 
-Includes deployment configurations, testing framework, contract upgrades pattern, gas usage report, security analysys audit, test coverage report.. did I also mention it's blazingly fast 😏
+This repo shows a reentrancy attack in action, as well as a fix to mitigate the attack. With tests to show the process of how it all works.
+
+
+<img width="824" alt="Screen Shot 2022-10-20 at 11 13 52 pm" src="https://user-images.githubusercontent.com/7098556/196945491-46abc177-3b5c-44eb-99ec-9e4f33c57e71.png">
+
 
 ## GET STARTED
 
