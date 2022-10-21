@@ -5,7 +5,7 @@
 This repo shows a reentrancy attack in action, as well as a fix to mitigate the attack. With tests to show the process of how it all works.
 
 
-<img width="1326" alt="Screen Shot 2022-10-21 at 3 10 08 pm" src="https://user-images.githubusercontent.com/7098556/197109929-0c52a3c7-0fdc-4c5d-ab4f-42d017a855e7.png">
+<img width="1332" alt="Screen Shot 2022-10-21 at 3 18 12 pm" src="https://user-images.githubusercontent.com/7098556/197110823-9b295c15-fb00-4153-bb6f-de75ee9eadd7.png">
 
 
 ## GET STARTED
