@@ -90,7 +90,7 @@ describe("Test Suite", function () {
         value: deposit_amount
       });
     });
-    it("Attacker should call attack() which will attempt to exploit reentancy secured function and fail to steal the ether deposited by alice and bob", async () => {
+    it("Attacker should call attack() which will attempt to exploit a reentancy secured function and fail to steal the ether deposited by alice and bob", async () => {
       expect(Number(await EscrowSecureContract.getBalance())).to.be.greaterThan(2)
       await expect(HackerFailsContract.connect(hacker).attack({value: ethers.utils.parseUnits("1", "ether")})).to.be.reverted;
       expect(Number(await EscrowSecureContract.getBalance())).to.be.greaterThan(2)
