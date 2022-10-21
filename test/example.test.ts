@@ -14,7 +14,7 @@ import {
 } from "../typechain";
 chai.use(solidity);
 
-function toWei(value: number) {
+function etherToWei(value: number) {
   return ethers.utils.parseEther(value.toString());
 }
 
@@ -31,7 +31,7 @@ describe("Test Suite", function () {
   let alice: Signer;
   let bob: Signer;
   let hacker: Signer;
-  let deposit_amount = toWei(1);
+  let deposit_amount = etherToWei(1);
 
   before(async () => {
     [alice, bob, hacker] = await ethers.getSigners();
@@ -67,13 +67,13 @@ describe("Test Suite", function () {
   describe("Successful Reentrancy Attack", function () {
     it("Alice and Bob should deposit some ether to the vulnerable contract", async () => {
       await EscrowVulnerableContract.connect(alice).deposit({
-        value: ethers.utils.parseUnits("1", "ether"),
+        value: deposit_amount
       });
       await EscrowVulnerableContract.connect(bob).deposit({
-        value: ethers.utils.parseUnits("1", "ether"),
+        value: deposit_amount
       });
     });
-    it("Should call attack() on a reentrancy vulnerable function and succeed to steal the ether", async () => {
+    it("Attacker should call attack() which will attempt to exploit a reentrancy vulnerable function and succeed to steal the ether deposited by alice and bob", async () => {
       expect(Number(await EscrowVulnerableContract.getBalance())).to.be.greaterThan(2)
       await expect(HackerSucceedsContract.connect(hacker).attack({value: ethers.utils.parseUnits("1", "ether")})).to.not.be.reverted;
       expect(Number(await EscrowVulnerableContract.getBalance())).to.be.lessThan(1)
@@ -84,13 +84,13 @@ describe("Test Suite", function () {
   describe("Mitigated Reentrancy Attack", function () {
     it("Alice and Bob should deposit some ether to the secured contract", async () => {
       await EscrowSecureContract.connect(alice).deposit({
-        value: ethers.utils.parseUnits("1", "ether"),
+        value: deposit_amount,
       });
       await EscrowSecureContract.connect(bob).deposit({
-        value: ethers.utils.parseUnits("1", "ether"),
+        value: deposit_amount
       });
     });
-    it("Should call attack() on a reentancy secured function and fail to steal the ether", async () => {
+    it("Attacker should call attack() which will attempt to exploit reentancy secured function and fail to steal the ether deposited by alice and bob", async () => {
       expect(Number(await EscrowSecureContract.getBalance())).to.be.greaterThan(2)
       await expect(HackerFailsContract.connect(hacker).attack({value: ethers.utils.parseUnits("1", "ether")})).to.be.reverted;
       expect(Number(await EscrowSecureContract.getBalance())).to.be.greaterThan(2)
